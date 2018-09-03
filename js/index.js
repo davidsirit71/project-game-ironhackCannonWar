@@ -1,5 +1,5 @@
 window.onload = function() {
-  var game = new GameSpace ('canvas-grid');
+  var boardSpace = new GameSpace ('canvas-grid');
 
-  game.gameStart();
+  boardSpace.gameStart();
 }
