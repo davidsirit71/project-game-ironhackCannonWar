@@ -4,6 +4,9 @@ function GameSpace(canvadId) {
   this.fps = 60;
 
   this.reset();
+
+  this.playerRight.setListeners(); //
+  this.playerLeft.setListeners();  //
 }
 
 GameSpace.prototype.gameStart = function() {
@@ -39,8 +42,9 @@ GameSpace.prototype.gameStop = function() {
 
 GameSpace.prototype.reset = function() {
   this.background = new Background(this);
-  this.playerOne = new PlayerOne(this);
-  this.playerTwo = new PlayerTwo(this);
+  this.playerLeft = new Player(this, 20, 'img/cannon-left.png');
+  this.playerRight = new Player(this, 840, 'img/cannon-right.png');
+
   this.framesCounter = 0;
 
   //players new Players(this)
@@ -60,14 +64,14 @@ GameSpace.prototype.clear = function() {
 
 GameSpace.prototype.draw = function() {
   this.background.draw();
-  this.playerOne.draw();
-  this.playerTwo.draw();
+  this.playerLeft.draw();
+  this.playerRight.draw();
 };
 
 GameSpace.prototype.moveAll = function() {
   //this.background.move();  // mover o cambiar bacground
-  this.playerOne.move();
-  this.playerTwo.move();
+  this.playerLeft.move();
+  this.playerRight.move();
 };
 
 //GameSpace.prototype.drawScore = function(){};
