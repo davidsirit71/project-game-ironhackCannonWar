@@ -2,6 +2,8 @@ function GameSpace(canvadId) {
   this.canvasSpace = document.getElementById(canvadId);
   this.ctx = this.canvasSpace.getContext("2d");
   this.fps = 60;
+  this.framesCounter = 0; 
+
 
   this.reset();
   this.setListeners();
@@ -12,10 +14,10 @@ GameSpace.prototype.gameStart = function() {
     function() {
       this.clear();
 
-      //this.framesCounter++;  // add cuadros
-      //if (this.framesCounter > 1000){
-      //  this.framesCounter = 0;
-      //}
+      this.framesCounter++; 
+      if (this.framesCounter > 10000){
+        this.framesCounter = 0;
+      }
 
       this.moveAll();
       this.draw();
@@ -46,15 +48,15 @@ GameSpace.prototype.reset = function() {
     this,
     this.playerLeft.x + 92,
     this.playerLeft.y + 36,
-    200,
-    45
+    40,
+    10
   );
   this.bulletRight = new Bullet(
     this,
     this.playerRight.x + 46,
     this.playerRight.y + 36,
-    200,
-    45
+    40,
+    10
   );
 
   this.framesCounter = 0;
@@ -88,8 +90,13 @@ GameSpace.prototype.setListeners = function() {
         this.bulletRight.dx = -10;
         //(this.x > 20 && this.x < 250)? this.dx -=10 : this.dx +=0;
         break;
-      //case SAPCE:
-      //this.shoot();
+      case SAPCE:
+        this.bulletLeft.baseTime();
+        this.bulletLeft.newPosInTime(1);
+        this.bulletRight.baseTime();
+        this.bulletRight.newPosInTime(-1);
+        //this.shoot();
+        break;
     }
   }.bind(this);
 };
