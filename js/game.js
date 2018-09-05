@@ -13,24 +13,19 @@ GameSpace.prototype.gameStart = function() {
   this.interval = setInterval(
     function() {
       this.clear();
-
       this.framesCounter++; 
       if (this.framesCounter > 10000){
         this.framesCounter = 0;
       }
-
       this.moveAll();
       this.draw();
-
       // add obstaculos
       // add score
-
       //añadir movimientos y dibujos
-
       //eliminar obstaculos
       // revisar colisiones
     }.bind(this),
-    10000 / this.fps
+    1000 / this.fps
   );
 };
 
@@ -48,15 +43,15 @@ GameSpace.prototype.reset = function() {
     this,
     this.playerLeft.x + 92,
     this.playerLeft.y + 36,
-    40,
-    10
+    0,
+    60
   );
   this.bulletRight = new Bullet(
     this,
     this.playerRight.x + 46,
     this.playerRight.y + 36,
-    40,
-    10
+    0,
+    45
   );
 
   this.framesCounter = 0;
@@ -91,9 +86,9 @@ GameSpace.prototype.setListeners = function() {
         //(this.x > 20 && this.x < 250)? this.dx -=10 : this.dx +=0;
         break;
       case SAPCE:
-        this.bulletLeft.baseTime();
+        //this.bulletLeft.baseTime();
         this.bulletLeft.newPosInTime(1);
-        this.bulletRight.baseTime();
+        //this.bulletRight.baseTime();
         this.bulletRight.newPosInTime(-1);
         //this.shoot();
         break;
