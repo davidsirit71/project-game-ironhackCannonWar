@@ -4,9 +4,7 @@ function GameSpace(canvadId) {
   this.fps = 60;
 
   this.reset();
-
-  this.playerRight.setListeners(); //
-  this.playerLeft.setListeners();  //
+  this.setListeners();
 }
 
 GameSpace.prototype.gameStart = function() {
@@ -42,14 +40,58 @@ GameSpace.prototype.gameStop = function() {
 
 GameSpace.prototype.reset = function() {
   this.background = new Background(this);
-  this.playerLeft = new Player(this, 20, 'img/cannon-left.png');
-  this.playerRight = new Player(this, 840, 'img/cannon-right.png');
+  this.playerLeft = new Player(this, 20, "img/cannon-left.png");
+  this.playerRight = new Player(this, 840, "img/cannon-right.png");
+  this.bulletLeft = new Bullet(
+    this,
+    this.playerLeft.x + 92,
+    this.playerLeft.y + 36,
+    200,
+    45
+  );
+  this.bulletRight = new Bullet(
+    this,
+    this.playerRight.x + 46,
+    this.playerRight.y + 36,
+    200,
+    45
+  );
 
   this.framesCounter = 0;
 
   //players new Players(this)
   // obstaculos
   // this.scores = 0;
+};
+
+GameSpace.prototype.setListeners = function() {
+  document.onkeydown = function(event) {
+    switch (event.keyCode) {
+      case 68:
+      case 100:
+        this.playerLeft.dx = 10;
+        this.bulletLeft.dx = 10;
+        break;
+      case RIGHT_ARROW:
+        this.playerRight.dx = 10;
+        this.bulletRight.dx = 10;
+        //(this.x > 0 && this.x < 110)? this.dx +=10 : this.dx +=0;
+        break;
+
+      case 65:
+      case 97:
+        this.playerLeft.dx = -10;
+        this.bulletLeft.dx = -10;
+        break;
+      case LEFT_ARROW:
+        this.playerRight.dx = -10;
+        this.bulletRight.dx = -10;
+        //(this.x > 20 && this.x < 250)? this.dx -=10 : this.dx +=0;
+        break;
+      //case SAPCE:
+      //this.shoot();
+    }
+  }.bind(this);
 };
 
 //GameSpace.prototype.isCollision = function(){};
@@ -66,12 +108,18 @@ GameSpace.prototype.draw = function() {
   this.background.draw();
   this.playerLeft.draw();
   this.playerRight.draw();
+  this.bulletLeft.draw();
+  this.bulletRight.draw();
 };
 
 GameSpace.prototype.moveAll = function() {
   //this.background.move();  // mover o cambiar bacground
   this.playerLeft.move();
   this.playerRight.move();
+  this.bulletLeft.move();
+  this.bulletRight.move();
+
+  // rotate image
 };
 
 //GameSpace.prototype.drawScore = function(){};
