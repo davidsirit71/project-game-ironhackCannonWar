@@ -23,4 +23,3 @@ Player.prototype.move = function() {
   this.x += this.dx;
   this.dx = 0;
 };
-

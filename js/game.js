@@ -2,8 +2,7 @@ function GameSpace(canvadId) {
   this.canvasSpace = document.getElementById(canvadId);
   this.ctx = this.canvasSpace.getContext("2d");
   this.fps = 60;
-  this.framesCounter = 0; 
-
+  this.framesCounter = 0;
 
   this.reset();
   this.setListeners();
@@ -13,8 +12,8 @@ GameSpace.prototype.gameStart = function() {
   this.interval = setInterval(
     function() {
       this.clear();
-      this.framesCounter++; 
-      if (this.framesCounter > 10000){
+      this.framesCounter++;
+      if (this.framesCounter > 10000) {
         this.framesCounter = 0;
       }
       this.moveAll();
@@ -43,15 +42,11 @@ GameSpace.prototype.reset = function() {
     this,
     this.playerLeft.x + 92,
     this.playerLeft.y + 36,
-    0,
-    60
   );
   this.bulletRight = new Bullet(
     this,
     this.playerRight.x + 46,
     this.playerRight.y + 36,
-    0,
-    45
   );
 
   this.framesCounter = 0;
@@ -86,11 +81,10 @@ GameSpace.prototype.setListeners = function() {
         //(this.x > 20 && this.x < 250)? this.dx -=10 : this.dx +=0;
         break;
       case SAPCE:
-        //this.bulletLeft.baseTime();
-        this.bulletLeft.newPosInTime(1);
-        //this.bulletRight.baseTime();
-        this.bulletRight.newPosInTime(-1);
-        //this.shoot();
+        this.bulletLeft.icre = 1;
+        this.bulletLeft.shootBullet(1, 130, 40, 20);
+        this.bulletRight.icre = 1;
+        this.bulletRight.shootBullet(-1, 70, 60, 20);
         break;
     }
   }.bind(this);
