@@ -61,24 +61,29 @@ GameSpace.prototype.setListeners = function() {
     switch (event.keyCode) {
       case 68:
       case 100:
-        this.playerLeft.dx = 10;
-        this.bulletLeft.dx = 10;
+        if (this.playerLeft.x <= 110){
+          this.playerLeft.dx = 10;
+          this.bulletLeft.dx = 10;
+        }
         break;
       case RIGHT_ARROW:
-        this.playerRight.dx = 10;
-        this.bulletRight.dx = 10;
-        //(this.x > 0 && this.x < 110)? this.dx +=10 : this.dx +=0;
+        if (this.playerRight.x <= 850){
+          this.playerRight.dx = 10;
+          this.bulletRight.dx = 10;
+        }
         break;
-
       case 65:
       case 97:
-        this.playerLeft.dx = -10;
-        this.bulletLeft.dx = -10;
+        if( this.playerLeft.x >= 10){
+          this.playerLeft.dx = -10;
+          this.bulletLeft.dx = -10;
+        }
         break;
       case LEFT_ARROW:
-        this.playerRight.dx = -10;
-        this.bulletRight.dx = -10;
-        //(this.x > 20 && this.x < 250)? this.dx -=10 : this.dx +=0;
+        if (this.playerRight.x >= 760){
+          this.playerRight.dx = -10;
+          this.bulletRight.dx = -10;
+        }
         break;
       case SAPCE:
         this.bulletLeft.icre = 1;
