@@ -13,6 +13,7 @@ function Player(game, x, pathImg) {
   this.x = x;
   this.y = this.game.canvasSpace.height - this.h - 30;
   this.dx = 0;
+  this.pDie = false;  
 }
 
 Player.prototype.draw = function() {

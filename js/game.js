@@ -18,6 +18,17 @@ GameSpace.prototype.gameStart = function() {
       }
       this.moveAll();
       this.draw();
+
+      // new code
+
+      if (this.isCollision()) {
+        if(this.plDie)
+          console.log('Player Left die');
+      
+        if (this.prDie)
+          console.log('Player Right die');
+    
+      }
       // add obstaculos
       // add score
       //añadir movimientos y dibujos
@@ -32,7 +43,13 @@ GameSpace.prototype.gameStop = function() {
   clearInterval(this.interval);
 };
 
-//GameSpace.prototype.gameOver = function(){};
+GameSpace.prototype.gameOver = function() {
+  this.gameStop();
+  if (confirm("GAME OVER. Play again?")) {
+    this.reset();
+    this.gameStart();
+  }
+};
 
 GameSpace.prototype.reset = function() {
   this.background = new Background(this);
@@ -41,12 +58,12 @@ GameSpace.prototype.reset = function() {
   this.bulletLeft = new Bullet(
     this,
     this.playerLeft.x + 92,
-    this.playerLeft.y + 36,
+    this.playerLeft.y + 36
   );
   this.bulletRight = new Bullet(
     this,
     this.playerRight.x + 46,
-    this.playerRight.y + 36,
+    this.playerRight.y + 36
   );
 
   this.framesCounter = 0;
@@ -61,41 +78,79 @@ GameSpace.prototype.setListeners = function() {
     switch (event.keyCode) {
       case 68:
       case 100:
-        if (this.playerLeft.x <= 110){
+        if (this.playerLeft.x <= 110) {
           this.playerLeft.dx = 10;
           this.bulletLeft.dx = 10;
         }
         break;
       case RIGHT_ARROW:
-        if (this.playerRight.x <= 850){
+        if (this.playerRight.x <= 850) {
           this.playerRight.dx = 10;
           this.bulletRight.dx = 10;
         }
         break;
       case 65:
       case 97:
-        if( this.playerLeft.x >= 10){
+        if (this.playerLeft.x >= 10) {
           this.playerLeft.dx = -10;
           this.bulletLeft.dx = -10;
         }
         break;
       case LEFT_ARROW:
-        if (this.playerRight.x >= 760){
+        if (this.playerRight.x >= 760) {
           this.playerRight.dx = -10;
           this.bulletRight.dx = -10;
         }
         break;
       case SAPCE:
         this.bulletLeft.icre = 1;
-        this.bulletLeft.shootBullet(1, 130, 40, 20);
+        this.bulletLeft.shootBullet(1, 65, 35, 7);
         this.bulletRight.icre = 1;
-        this.bulletRight.shootBullet(-1, 70, 60, 20);
+        this.bulletRight.shootBullet(-1, 80, 60, 7);
         break;
     }
   }.bind(this);
 };
 
-//GameSpace.prototype.isCollision = function(){};
+GameSpace.prototype.isCollision = function() {
+
+  this.plpx = this.playerLeft.x;
+  this.plw = this.playerLeft.w;
+  this.plpy = this.playerLeft.y;
+  this.plh = this.playerLeft.h;
+  this.brpx = this.bulletRight.x;
+  this.brpy = this.bulletRight.y;
+  this.plDie = this.playerLeft.pDie;  
+
+
+  if (
+    this.brpx >= this.plpx &&
+    this.brpx <= this.plpx + this.plw &&
+    this.brpy >= this.plpy &&
+    this.brpy <= this.plpy + this.plh
+  ) {
+    this.plDie = true;
+  }
+
+  this.prpx = this.playerRight.x;
+  this.prw = this.playerRight.w;
+  this.prpy = this.playerRight.y;
+  this.prh = this.playerRight.h;
+  this.blpx = this.bulletLeft.x;
+  this.blpy = this.bulletLeft.y;
+  this.prDie = this.playerRight.pDie;
+
+  if (
+    this.blpx >= this.prpx &&
+    this.blpx <= this.prpx + this.prw &&
+    this.blpy >= this.prpy &&
+    this.blpy <= this.prpy + this.prh
+  ) {
+    this.prDie = true;
+  }
+
+  return  this.prDie || this.plDie;
+};
 
 //GameSpace.prototype.generateObstacle = function(){};
 
@@ -109,8 +164,8 @@ GameSpace.prototype.draw = function() {
   this.background.draw();
   this.playerLeft.draw();
   this.playerRight.draw();
-  this.bulletLeft.draw();
-  this.bulletRight.draw();
+  this.bulletLeft.draw("#b7b511");
+  this.bulletRight.draw("#349e0b");
 };
 
 GameSpace.prototype.moveAll = function() {

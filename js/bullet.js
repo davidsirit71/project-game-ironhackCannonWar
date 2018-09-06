@@ -15,9 +15,9 @@ function Bullet(game, x0, y0) {
   this.icre = 1;
 }
 
-Bullet.prototype.draw = function() {
+Bullet.prototype.draw = function(bColor) {
   this.game.ctx.beginPath();
-  this.game.ctx.fillStyle = "yellow";
+  this.game.ctx.fillStyle = bColor;
   this.game.ctx.arc(this.x, this.y, this.r, 0, Math.PI * 2);
   this.game.ctx.fill();
   this.game.ctx.closePath();
