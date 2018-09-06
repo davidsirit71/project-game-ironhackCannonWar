@@ -14,6 +14,7 @@ function Player(game, x, pathImg) {
   this.y = this.game.canvasSpace.height - this.h - 30;
   this.dx = 0;
   this.pDie = false;  
+  this.score = 0;
 }
 
 Player.prototype.draw = function() {

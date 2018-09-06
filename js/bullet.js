@@ -10,7 +10,6 @@ function Bullet(game, x0, y0) {
   this.xt = 0;
   this.yt = 0;
   this.yt2 = 0;
-  //this.timeInAir = 0;
   this.fps = 60;
   this.icre = 1;
 }

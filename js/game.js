@@ -2,7 +2,9 @@ function GameSpace(canvadId) {
   this.canvasSpace = document.getElementById(canvadId);
   this.ctx = this.canvasSpace.getContext("2d");
   this.fps = 60;
-  this.framesCounter = 0;
+  this.rounds= 1;
+
+  //this.framesCounter = 0;
 
   this.reset();
   this.setListeners();
@@ -12,23 +14,24 @@ GameSpace.prototype.gameStart = function() {
   this.interval = setInterval(
     function() {
       this.clear();
-      this.framesCounter++;
-      if (this.framesCounter > 10000) {
-        this.framesCounter = 0;
-      }
+      //this.framesCounter++;
+      //if (this.framesCounter > 10000) {
+      //  this.framesCounter = 0;
+      //}
       this.moveAll();
       this.draw();
+      this.isCollision();
 
       // new code
 
-      if (this.isCollision()) {
-        if(this.plDie)
-          console.log('Player Left die');
+      // if (this.isCollision()) {
+      //   if(this.plDie)
+      //     console.log('Player Left die'); //pendiente
+          
       
-        if (this.prDie)
-          console.log('Player Right die');
-    
-      }
+      //   if (this.prDie)
+      //     console.log('Player Right die'); // pendiente    
+      // }
       // add obstaculos
       // add score
       //añadir movimientos y dibujos
@@ -66,7 +69,7 @@ GameSpace.prototype.reset = function() {
     this.playerRight.y + 36
   );
 
-  this.framesCounter = 0;
+  //this.framesCounter = 0;
 
   //players new Players(this)
   // obstaculos
@@ -130,6 +133,9 @@ GameSpace.prototype.isCollision = function() {
     this.brpy <= this.plpy + this.plh
   ) {
     this.plDie = true;
+    this.playerRight.score++;
+    delete this.bulletRight.x;
+    delete this.bulletRight.y;
   }
 
   this.prpx = this.playerRight.x;
@@ -147,6 +153,10 @@ GameSpace.prototype.isCollision = function() {
     this.blpy <= this.prpy + this.prh
   ) {
     this.prDie = true;
+    this.playerLeft.score++;
+    delete this.bulletLeft.x;
+    delete this.bulletLeft.y;
+    
   }
 
   return  this.prDie || this.plDie;
@@ -166,6 +176,8 @@ GameSpace.prototype.draw = function() {
   this.playerRight.draw();
   this.bulletLeft.draw("#b7b511");
   this.bulletRight.draw("#349e0b");
+
+  this.drawScore();
 };
 
 GameSpace.prototype.moveAll = function() {
@@ -178,4 +190,21 @@ GameSpace.prototype.moveAll = function() {
   // rotate image
 };
 
-//GameSpace.prototype.drawScore = function(){};
+GameSpace.prototype.drawScore = function(){
+  var textPL = 'Player One';
+  var textPR = 'Player Two'
+  var textIH1 = 'Ironhack';
+  var textIH2 = 'Cannon War'
+  this.ctx.font = "20px system-ui";
+  this.ctx.fillStyle = "#b7b511";
+  this.ctx.fillText((textPL), 30, 40);
+  this.ctx.fillText((this.playerLeft.score), 40, 65);
+  this.ctx.fillStyle = "#349e0b";
+  this.ctx.fillText((textPR), 850, 40);
+  this.ctx.fillText((this.playerRight.score), 860, 65);
+  this.ctx.font = "30px Roboto";
+  this.ctx.fillStyle = "#3fa7e4";
+  this.ctx.fillText((textIH1), 450, 30);
+  this.ctx.fillText((textIH2), 420, 55);
+ 
+};
