@@ -5,6 +5,7 @@ function Bullet(game, x0, y0) {
   this.r = 7;
   this.v0 = 0;
   this.phi = 0;
+  this.phiRad =0;
   this.gra = 10;
   this.dx = 0;
   this.xt = 0;
@@ -29,11 +30,12 @@ Bullet.prototype.move = function() {
   this.y -= this.yt + (this.yt2 * this.icre * this.icre) / 360;
 };
 
-Bullet.prototype.shootBullet = function(dirX, v0, phi, grav) {
+Bullet.prototype.shootBullet = function(dirX, v0, grav) {
   this.v0 = v0 / this.fps;
-  this.phi = phi * Math.PI/180;
+  //this.phi = phi;
+  this.phiRad = this.phi * Math.PI/180;
   this.gra = grav / 3600;
-  this.xt = dirX * (this.v0 * Math.cos(this.phi));
-  this.yt = this.v0 * Math.sin(this.phi);
+  this.xt = dirX * (this.v0 * Math.cos(this.phiRad));
+  this.yt = this.v0 * Math.sin(this.phiRad);
   this.yt2 = -1 * (0.5 * this.gra);
 };

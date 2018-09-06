@@ -2,7 +2,7 @@ function GameSpace(canvadId) {
   this.canvasSpace = document.getElementById(canvadId);
   this.ctx = this.canvasSpace.getContext("2d");
   this.fps = 60;
-  this.rounds= 1;
+  this.rounds = 1;
 
   //this.framesCounter = 0;
 
@@ -27,10 +27,9 @@ GameSpace.prototype.gameStart = function() {
       // if (this.isCollision()) {
       //   if(this.plDie)
       //     console.log('Player Left die'); //pendiente
-          
-      
+
       //   if (this.prDie)
-      //     console.log('Player Right die'); // pendiente    
+      //     console.log('Player Right die'); // pendiente
       // }
       // add obstaculos
       // add score
@@ -107,24 +106,40 @@ GameSpace.prototype.setListeners = function() {
         break;
       case SAPCE:
         this.bulletLeft.icre = 1;
-        this.bulletLeft.shootBullet(1, 65, 35, 7);
+        this.bulletLeft.shootBullet(1, 65, 7);
         this.bulletRight.icre = 1;
-        this.bulletRight.shootBullet(-1, 80, 60, 7);
+        this.bulletRight.shootBullet(-1, 80, 7);
+        break;
+      case UP_ARROW:
+        this.bulletRight.phi++;
+        if (this.bulletRight.phi > 90) this.bulletRight.phi = 90;
+        break;
+      case DOWN_ARROW:
+        this.bulletRight.phi--;
+        if (this.bulletRight.phi < 0) this.bulletRight.phi = 0;
+        break;
+      case 119:
+      case 87:
+        this.bulletLeft.phi++;
+        if (this.bulletLeft.phi > 90) this.bulletLeft.phi = 90;
+        break;
+      case 115:
+      case 83:
+        this.bulletLeft.phi--;
+        if (this.bulletLeft.phi < 0) this.bulletLeft.phi = 0;
         break;
     }
   }.bind(this);
 };
 
 GameSpace.prototype.isCollision = function() {
-
   this.plpx = this.playerLeft.x;
   this.plw = this.playerLeft.w;
   this.plpy = this.playerLeft.y;
   this.plh = this.playerLeft.h;
   this.brpx = this.bulletRight.x;
   this.brpy = this.bulletRight.y;
-  this.plDie = this.playerLeft.pDie;  
-
+  this.plDie = this.playerLeft.pDie;
 
   if (
     this.brpx >= this.plpx &&
@@ -156,10 +171,9 @@ GameSpace.prototype.isCollision = function() {
     this.playerLeft.score++;
     delete this.bulletLeft.x;
     delete this.bulletLeft.y;
-    
   }
 
-  return  this.prDie || this.plDie;
+  return this.prDie || this.plDie;
 };
 
 //GameSpace.prototype.generateObstacle = function(){};
@@ -190,21 +204,24 @@ GameSpace.prototype.moveAll = function() {
   // rotate image
 };
 
-GameSpace.prototype.drawScore = function(){
-  var textPL = 'Player One';
-  var textPR = 'Player Two'
-  var textIH1 = 'Ironhack';
-  var textIH2 = 'Cannon War'
+GameSpace.prototype.drawScore = function() {
   this.ctx.font = "20px system-ui";
   this.ctx.fillStyle = "#b7b511";
-  this.ctx.fillText((textPL), 30, 40);
-  this.ctx.fillText((this.playerLeft.score), 40, 65);
+  this.ctx.fillText("Player One", 30, 40);
+  this.ctx.fillText(this.playerLeft.score, 40, 65);
+  this.ctx.fillText(Math.round(this.bulletLeft.phi).toString() + "gra", 40, 90);
+
   this.ctx.fillStyle = "#349e0b";
-  this.ctx.fillText((textPR), 850, 40);
-  this.ctx.fillText((this.playerRight.score), 860, 65);
+  this.ctx.fillText("Player Two", 850, 40);
+  this.ctx.fillText(this.playerRight.score, 860, 65);
+  this.ctx.fillText(
+    Math.round(this.bulletRight.phi).toString() + "gra",
+    860,
+    90
+  );
+
   this.ctx.font = "30px Roboto";
   this.ctx.fillStyle = "#3fa7e4";
-  this.ctx.fillText((textIH1), 450, 30);
-  this.ctx.fillText((textIH2), 420, 55);
- 
+  this.ctx.fillText("Ironhack", 450, 30);
+  this.ctx.fillText("Cannon War", 420, 55);
 };
