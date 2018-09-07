@@ -1,5 +1,4 @@
-# project-game-ironhackCannonWar
-Ironhack Project game CannonWar
+# Ironhack Project game CannonWar
 
 
 ***
@@ -52,4 +51,8 @@ this.yt = this.v0 * Math.sin(this.phiRad);
 this.yt2 = -1 * (0.5 * this.gra);
 };
 ```
-
+***
+Pendientes:
+***
+    • Usar transición  a  otros escenarios. Permitir la modificación de otras variables como velocidad y gravedad. 
+    • Creacion de otros niveles de juego.
