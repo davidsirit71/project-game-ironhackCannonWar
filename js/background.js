@@ -7,8 +7,6 @@ function Background(game) {
   this.x = 0;
   this.y = 0;
 
-  //this.dx = 10; // movimiento escenario en x
-  //this.dy = 10; // movimiento escenario en y
 }
 
 Background.prototype.draw = function() {
@@ -20,14 +18,5 @@ Background.prototype.draw = function() {
     this.game.canvasSpace.height
   );
 
-  //this.game.ctx.drawImage(this.img, this.x + this.game.canvas.width, this.y, this.game.canvas.width, this.game.canvas.height);
 };
 
-/* 
-Background.prototype.move = function(){
-  this.x -= this.dx;
-
-  if (this.x < -this.game.canvas.width) this.x = 0;
-
-}
-*/
