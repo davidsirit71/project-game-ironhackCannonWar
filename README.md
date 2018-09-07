@@ -1,5 +1,7 @@
 # Ironhack Project game CannonWar
 
+https://davidsirit71.github.io/project-game-ironhackCannonWar/ 
+
 
 ***
 My biggest problem was how to simulate the parabolic throw...
