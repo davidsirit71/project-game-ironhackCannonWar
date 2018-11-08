@@ -49,7 +49,7 @@ GameSpace.prototype.gameOver = function() {
 };
 
 GameSpace.prototype.reset = function() {
-  this.background = new Background(this);
+  this.background = new Background(this, "img/jupiter-europa-1.jpg");
   this.playerLeft = new Player(this, 20, "img/cannones-izq.png");
   this.playerRight = new Player(this, 840, "img/cannones-der.png");
   this.bulletLeft = new Bullet(
@@ -95,9 +95,9 @@ GameSpace.prototype.setListeners = function() {
         break;
       case SAPCE:
         this.bulletLeft.icre = 1;
-        this.bulletLeft.shootBullet(1, 70, 7);
+        this.bulletLeft.shootBullet(1, 120, 21);
         this.bulletRight.icre = 1;
-        this.bulletRight.shootBullet(-1, 70, 7);
+        this.bulletRight.shootBullet(-1, 120, 21);
         break;
       case UP_ARROW:
         this.bulletRight.phi++;

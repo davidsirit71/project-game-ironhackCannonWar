@@ -1,8 +1,8 @@
-function Background(game) {
+function Background(game, backImage) {
   this.game = game;
 
   this.img = new Image();
-  this.img.src = "img/jupiter-europa-1.jpg";
+  this.img.src = backImage; // ojo
 
   this.x = 0;
   this.y = 0;

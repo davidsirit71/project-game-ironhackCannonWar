@@ -32,7 +32,6 @@ Bullet.prototype.move = function() {
 
 Bullet.prototype.shootBullet = function(dirX, v0, grav) {
   this.v0 = v0 / this.fps;
-  //this.phi = phi;
   this.phiRad = this.phi * Math.PI/180;
   this.gra = grav / 3600;
   this.xt = dirX * (this.v0 * Math.cos(this.phiRad));
